@@ -1,0 +1,39 @@
+@import '../../styles/text_extends';
+
+.task {
+  height: 100px;
+  min-height: 70px;
+  max-height: 200px;
+  margin: 5px 0;
+
+  background: darkgray;
+  filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.3));
+
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.task__title {
+  @extend %task__title;
+
+  display: flex;
+  align-items: center;
+  height: 30px;
+  padding-left: 10px;
+}
+
+.task__desc {
+  height: 70px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  font-weight: 400;
+  font-size: 1.5vh;
+
+  color: #383838;
+}
