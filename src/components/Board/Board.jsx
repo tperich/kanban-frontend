@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import Column from '../Column/Column';
+import { updateBoard } from '../../store/actions/actions';
 import './Board.scss';
 
-function Board({ title = 'New board', data }) {
+function Board({ data }) {
   useEffect(() => {
-    document.title = `${title} | Kanban`;
-  }, [title]);
+    document.title = `${data.title} | Kanban`;
+  }, [data.title]);
 
-  const [columns, setColumns] = useState(data.columns);
+  const dispatch = useDispatch();
+  const columns = data.columns;
 
   function onDragEnd({ destination, source, draggableId }) {
     if (!destination) return;
@@ -25,20 +28,47 @@ function Board({ title = 'New board', data }) {
     const targetColumn = columns[destination.droppableId];
 
     if (sourceColumn === targetColumn) {
-      const newTaskIds = Array.from(sourceColumn.taskIds);
-      newTaskIds.splice(source.index, 1);
-      newTaskIds.splice(destination.index, 0, draggableId);
-
-      const newColumn = {
-        ...sourceColumn,
-        taskIds: newTaskIds
-      };
-
-      setColumns({ ...columns, [newColumn.id]: newColumn });
+      handleMoveWithinColumn(sourceColumn, source, destination, draggableId);
       return;
     }
 
-    // Moving from one column to another
+    handleMoveOutsideColumn(
+      sourceColumn,
+      targetColumn,
+      source,
+      destination,
+      draggableId
+    );
+  }
+
+  function handleMoveWithinColumn(column, source, destination, draggableId) {
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...column,
+      taskIds: newTaskIds
+    };
+
+    dispatch(
+      updateBoard({
+        ...data,
+        columns: {
+          ...columns,
+          [newColumn.id]: newColumn
+        }
+      })
+    );
+  }
+
+  function handleMoveOutsideColumn(
+    sourceColumn,
+    targetColumn,
+    source,
+    destination,
+    draggableId
+  ) {
     const sourceTaskIds = Array.from(sourceColumn.taskIds);
     sourceTaskIds.splice(source.index, 1);
     const newSourceColumn = {
@@ -53,11 +83,16 @@ function Board({ title = 'New board', data }) {
       taskIds: targetTaskIds
     };
 
-    setColumns({
-      ...columns,
-      [newSourceColumn.id]: newSourceColumn,
-      [newTargetColumn.id]: newTargetColumn
-    });
+    dispatch(
+      updateBoard({
+        ...data,
+        columns: {
+          ...columns,
+          [newSourceColumn.id]: newSourceColumn,
+          [newTargetColumn.id]: newTargetColumn
+        }
+      })
+    );
   }
 
   return (

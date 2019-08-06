@@ -1,17 +1,20 @@
-import React from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import './Home.scss';
 import Board from '../../components/Board/Board';
-import { initialData } from '../../data/initialData';
 
 function Home() {
+  useEffect(() => {
+    // Dispatch action to fetch data for boards here
+  }, []);
+
+  const boardsData = useSelector(state => state.boards);
+
   return (
-    <DragDropContext>
-      <div className="home">
-        <Board title={initialData.board.title} data={initialData} />
-      </div>
-    </DragDropContext>
+    <div className="home">
+      <Board data={boardsData.board} />
+    </div>
   );
 }
 
