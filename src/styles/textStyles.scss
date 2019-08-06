@@ -1,0 +1,10 @@
+%message {
+  font-size: 2em;
+  text-align: center;
+}
+
+.message--error {
+  @extend %message;
+
+  color: red;
+}
