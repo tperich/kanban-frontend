@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  kanban-frontend:
+    container_name: kanban-frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '80:3000'
+    environment:
+      - NODE_ENV=development
