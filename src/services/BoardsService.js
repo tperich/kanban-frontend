@@ -3,8 +3,9 @@ import BaseService from './BaseService';
 import { ENDPOINTS } from '../constants/apiConstants';
 
 class BoardsService extends BaseService {
-  fetchBoard = async () => {
-    return await this.apiClient.get(ENDPOINTS.BOARDS.BOARD);
+  fetchBoard = async boardId => {
+    const path = ENDPOINTS.BOARDS.BOARD_ALL.replace('{board}', boardId);
+    return await this.apiClient.get(path);
   };
 
   updateBoard = async boardData => {

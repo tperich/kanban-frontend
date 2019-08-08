@@ -9,7 +9,9 @@ import '../../styles/textStyles.scss';
 function Home() {
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(fetchBoard()), [dispatch]);
+  useEffect(() => {
+    dispatch(fetchBoard());
+  }, [dispatch]);
 
   const boardsData = useSelector(state => state.boards);
 

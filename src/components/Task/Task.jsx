@@ -24,7 +24,7 @@ function Task({ taskId, title = 'Title', description = 'Description', index }) {
 
 Task.propTypes = {
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
 };
 
 export default Task;

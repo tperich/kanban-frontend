@@ -9,13 +9,18 @@ import {
   updateBoardSuccess,
   updateBoardFailure,
 } from '../actions/actions';
+import { BOARD_DATA } from '../../constants/apiConstants';
 
 export function* fetchBoard() {
   yield put(setIsFetchingBoard(true));
 
   try {
-    const boardData = yield call(boardsService.fetchBoard);
-    yield put(fetchBoardSuccess(boardData));
+    const { data } = yield call(
+      boardsService.fetchBoard,
+      BOARD_DATA.DEFAULT_BOARD_ID
+    );
+
+    yield put(fetchBoardSuccess(data));
   } catch (error) {
     yield put(fetchBoardFailure(error.message));
   }

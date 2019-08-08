@@ -24,8 +24,8 @@ function Board({ data }) {
       return;
     }
 
-    const sourceColumn = columns[source.droppableId];
-    const targetColumn = columns[destination.droppableId];
+    const sourceColumn = columns[source.droppableId - 1];
+    const targetColumn = columns[destination.droppableId - 1];
 
     if (sourceColumn === targetColumn) {
       handleMoveWithinColumn(sourceColumn, source, destination, draggableId);
@@ -42,24 +42,12 @@ function Board({ data }) {
   }
 
   function handleMoveWithinColumn(column, source, destination, draggableId) {
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    const newTask = column.tasks.filter(task => task.id === draggableId);
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds
-    };
+    column.tasks.splice(source.index, 1);
+    column.tasks.splice(destination.index, 0, ...newTask);
 
-    dispatch(
-      updateBoard({
-        ...data,
-        columns: {
-          ...columns,
-          [newColumn.id]: newColumn
-        }
-      })
-    );
+    dispatch(updateBoard({ ...data }));
   }
 
   function handleMoveOutsideColumn(
@@ -69,38 +57,18 @@ function Board({ data }) {
     destination,
     draggableId
   ) {
-    const sourceTaskIds = Array.from(sourceColumn.taskIds);
-    sourceTaskIds.splice(source.index, 1);
-    const newSourceColumn = {
-      ...sourceColumn,
-      taskIds: sourceTaskIds
-    };
+    const newTask = sourceColumn.tasks.filter(task => task.id === draggableId);
+    sourceColumn.tasks.splice(source.index, 1);
+    targetColumn.tasks.splice(destination.index, 0, ...newTask);
 
-    const targetTaskIds = Array.from(targetColumn.taskIds);
-    targetTaskIds.splice(destination.index, 0, draggableId);
-    const newTargetColumn = {
-      ...targetColumn,
-      taskIds: targetTaskIds
-    };
-
-    dispatch(
-      updateBoard({
-        ...data,
-        columns: {
-          ...columns,
-          [newSourceColumn.id]: newSourceColumn,
-          [newTargetColumn.id]: newTargetColumn
-        }
-      })
-    );
+    dispatch(updateBoard({ ...data }));
   }
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="board">
-        {data.columnOrder.map(columnId => {
-          const column = columns[columnId];
-          const tasks = column.taskIds.map(taskId => data.tasks[taskId]);
+        {data.columns.map(column => {
+          const tasks = column.tasks;
 
           return (
             <Column

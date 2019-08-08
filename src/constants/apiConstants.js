@@ -4,5 +4,12 @@ export const API = {
 };
 
 export const ENDPOINTS = {
-  BOARDS: '/boards/{board}',
+  BOARDS: {
+    BOARD: '/boards/{board}',
+    BOARD_ALL: '/boards/{board}/all',
+  },
+};
+
+export const BOARD_DATA = {
+  DEFAULT_BOARD_ID: 1,
 };
