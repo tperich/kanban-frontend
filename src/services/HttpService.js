@@ -7,13 +7,13 @@ class HttpService {
 
     this.client.defaults.headers.post = {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     };
   }
 }
 
 const clientConfig = {
-  baseURL: config.BASE_API_URL
+  baseURL: config.BASE_API_URL,
 };
 
 export default new HttpService(clientConfig);
