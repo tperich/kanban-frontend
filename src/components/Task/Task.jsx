@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 
+import { truncate } from '../../utils/textUtils';
 import './Task.scss';
 
 function Task({ taskId, title = 'Title', description = 'Description', index }) {
@@ -15,7 +16,7 @@ function Task({ taskId, title = 'Title', description = 'Description', index }) {
           {...provided.dragHandleProps}
         >
           <h4 className="task__title">{title}</h4>
-          <div className="task__desc">{description}</div>
+          <div className="task__desc">{truncate(description, 80)}</div>
         </div>
       )}
     </Draggable>
