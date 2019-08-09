@@ -1,5 +1,6 @@
 /** Boards */
 // Fetch a board
+export const SET_IS_FETCHING_BOARD = 'SET_IS_FETCHING_BOARD';
 export const FETCH_BOARD_REQUEST = 'FETCH_BOARD_REQUEST';
 export const FETCH_BOARD_SUCCESS = 'FETCH_BOARD_SUCCESS';
 export const FETCH_BOARD_FAILURE = 'FETCH_BOARD_FAILURE';

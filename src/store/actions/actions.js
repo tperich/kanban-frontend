@@ -1,6 +1,6 @@
 import {
   FETCH_BOARD_REQUEST,
-  SET_IS_FECTHING_BOARD,
+  SET_IS_FETCHING_BOARD,
   FETCH_BOARD_SUCCESS,
   FETCH_BOARD_FAILURE,
   UPDATE_BOARD_REQUEST,
@@ -18,7 +18,7 @@ import {
 
 // Fetch board
 export const setIsFetchingBoard = payload => ({
-  type: SET_IS_FECTHING_BOARD,
+  type: SET_IS_FETCHING_BOARD,
   payload,
 });
 

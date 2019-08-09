@@ -1,5 +1,5 @@
 import {
-  SET_IS_FECTHING_BOARD,
+  SET_IS_FETCHING_BOARD,
   FETCH_BOARD_SUCCESS,
   FETCH_BOARD_FAILURE,
   SET_IS_UPDATING_BOARD,
@@ -26,7 +26,7 @@ const initialState = {
 
 const boardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_IS_FECTHING_BOARD:
+    case SET_IS_FETCHING_BOARD:
       return {
         ...state,
         isFetching: action.payload,
