@@ -1,7 +1,14 @@
 .column {
+  display: flex;
+  flex-direction: column;
   height: 90vh;
   width: 300px;
-  background: gray;
   padding: 10px;
   margin: 0 10px;
+
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.column__title {
+  font-size: 1.2em;
 }
