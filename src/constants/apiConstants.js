@@ -7,7 +7,10 @@ export const ENDPOINTS = {
   BOARDS: {
     BOARD: '/boards/{board}',
     BOARD_ALL: '/boards/{board}/all',
-    TASK: '/boards/{board}/task',
+    TASK: {
+      NEW: '/task/new',
+      DELETE: '/task/delete',
+    },
   },
 };
 

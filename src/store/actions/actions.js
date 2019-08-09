@@ -7,10 +7,13 @@ import {
   SET_IS_UPDATING_BOARD,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
+  SET_IS_UPDATING_TASKS,
   ADD_TASK_REQUEST,
   ADD_TASK_SUCCESS,
   ADD_TASK_FAILURE,
-  SET_IS_UPDATING_TASKS,
+  DEL_TASK_REQUEST,
+  DEL_TASK_SUCCESS,
+  DEL_TASK_FAILURE,
 } from './actionTypes';
 
 // Fetch board
@@ -73,5 +76,20 @@ export const addTaskSuccess = payload => ({
 
 export const addTaskFailure = payload => ({
   type: ADD_TASK_FAILURE,
+  payload,
+});
+
+export const deleteTask = payload => ({
+  type: DEL_TASK_REQUEST,
+  payload,
+});
+
+export const deleteTaskSuccess = payload => ({
+  type: DEL_TASK_SUCCESS,
+  payload,
+});
+
+export const deleteTaskFailure = payload => ({
+  type: DEL_TASK_FAILURE,
   payload,
 });

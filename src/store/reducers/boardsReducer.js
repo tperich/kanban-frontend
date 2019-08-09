@@ -5,9 +5,11 @@ import {
   SET_IS_UPDATING_BOARD,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
+  SET_IS_UPDATING_TASKS,
   ADD_TASK_SUCCESS,
   ADD_TASK_FAILURE,
-  SET_IS_UPDATING_TASKS,
+  DEL_TASK_SUCCESS,
+  DEL_TASK_FAILURE,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -75,7 +77,20 @@ const boardsReducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdatingTasks: false,
+        error: action.payload,
+      };
+    case DEL_TASK_SUCCESS:
+      return {
+        ...state,
+        board: action.payload,
+        isUpdatingTasks: false,
         error: null,
+      };
+    case DEL_TASK_FAILURE:
+      return {
+        ...state,
+        isUpdatingTasks: false,
+        error: action.payload,
       };
     default:
       return state;

@@ -14,8 +14,17 @@ class BoardsService extends BaseService {
   };
 
   addTask = async (boardId, taskData) => {
-    const path = ENDPOINTS.BOARDS.TASK.replace('{board}', boardId);
+    const basePath = ENDPOINTS.BOARDS.BOARD + ENDPOINTS.BOARDS.TASK.NEW;
+    const path = basePath.replace('{board}', boardId);
+
     return await this.apiClient.post(path, taskData);
+  };
+
+  deleteTask = async (boardId, taskId) => {
+    const basePath = ENDPOINTS.BOARDS.BOARD + ENDPOINTS.BOARDS.TASK.DELETE;
+    const path = basePath.replace('{board}', boardId);
+
+    return await this.apiClient.post(path, { task_id: taskId });
   };
 }
 

@@ -1,17 +1,24 @@
-// Fetching board
-export const SET_IS_FECTHING_BOARD = 'SET_IS_FETCHING_BOARD';
+/** Boards */
+// Fetch a board
 export const FETCH_BOARD_REQUEST = 'FETCH_BOARD_REQUEST';
 export const FETCH_BOARD_SUCCESS = 'FETCH_BOARD_SUCCESS';
 export const FETCH_BOARD_FAILURE = 'FETCH_BOARD_FAILURE';
 
-// Updating board
+// Update a board
 export const SET_IS_UPDATING_BOARD = 'SET_IS_UPDATING_BOARD ';
 export const UPDATE_BOARD_REQUEST = 'UPDATE_BOARD_REQUEST ';
 export const UPDATE_BOARD_SUCCESS = 'UPDATE_BOARD_SUCCESS ';
 export const UPDATE_BOARD_FAILURE = 'UPDATE_BOARD_FAILURE ';
 
-// Add new task
+/** Tasks */
 export const SET_IS_UPDATING_TASKS = 'SET_IS_UPDATING_TASKS';
+
+// Add a task
 export const ADD_TASK_REQUEST = 'ADD_TASK_REQUEST ';
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS ';
 export const ADD_TASK_FAILURE = 'ADD_TASK_FAILURE ';
+
+// Delete a task
+export const DEL_TASK_REQUEST = 'DEL_TASK_REQUEST';
+export const DEL_TASK_SUCCESS = 'DEL_TASK_SUCCESS ';
+export const DEL_TASK_FAILURE = 'DEL_TASK_FAILURE ';

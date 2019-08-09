@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import { message } from 'antd';
 
 import boardsService from '../../services/BoardsService';
 import {
@@ -11,6 +12,8 @@ import {
   setIsUpdatingTasks,
   addTaskSuccess,
   addTaskFailure,
+  deleteTaskSuccess,
+  deleteTaskFailure,
 } from '../actions/actions';
 import { BOARD_DATA } from '../../constants/apiConstants';
 
@@ -54,7 +57,27 @@ export function* addTask(action) {
       action.payload
     );
     yield put(addTaskSuccess(data));
+    yield call(message.success, 'New task added');
   } catch (error) {
     yield put(addTaskFailure(error.message));
+    yield call(message.error, `Error: ${error.message}`);
+  }
+}
+
+export function* deleteTask(action) {
+  yield put(setIsUpdatingTasks(true));
+
+  try {
+    const { data } = yield call(
+      boardsService.deleteTask,
+      BOARD_DATA.DEFAULT_BOARD_ID,
+      action.payload
+    );
+
+    yield put(deleteTaskSuccess(data));
+    yield call(message.success, 'Task deleted');
+  } catch (error) {
+    yield put(deleteTaskFailure(error.message));
+    yield call(message.error, `Error: ${error.message}`);
   }
 }
