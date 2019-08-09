@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import Column from '../Column/Column';
+import Spinner from '../Spinner/Spinner';
 import { updateBoard } from '../../store/actions/actions';
+import '../../styles/text.scss';
 import './Board.scss';
 
 function Board({ data }) {
@@ -13,6 +15,10 @@ function Board({ data }) {
 
   const dispatch = useDispatch();
   const columns = data.columns;
+  const taskStatus = useSelector(state => ({
+    isUpdating: state.boards.isUpdatingTasks,
+    error: state.boards.error,
+  }));
 
   function onDragEnd({ destination, source, draggableId }) {
     if (!destination) return;
@@ -67,6 +73,10 @@ function Board({ data }) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="board">
+        {taskStatus.isUpdating && <Spinner />}
+        {taskStatus.error && (
+          <h1 className="message--error">{taskStatus.error}</h1>
+        )}
         {data.columns.map(column => {
           const tasks = column.tasks;
 

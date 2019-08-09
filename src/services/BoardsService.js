@@ -13,6 +13,11 @@ class BoardsService extends BaseService {
       data: boardData,
     });
   };
+
+  addTask = async (boardId, taskData) => {
+    const path = ENDPOINTS.BOARDS.TASK.replace('{board}', boardId);
+    return await this.apiClient.post(path, taskData);
+  };
 }
 
 const boardsService = new BoardsService();

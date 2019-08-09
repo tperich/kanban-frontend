@@ -1,5 +1,4 @@
 import {
-  FETCH_BOARD_REQUEST,
   SET_IS_FECTHING_BOARD,
   FETCH_BOARD_SUCCESS,
   FETCH_BOARD_FAILURE,
@@ -7,11 +6,15 @@ import {
   SET_IS_UPDATING_BOARD,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
+  ADD_TASK_SUCCESS,
+  ADD_TASK_FAILURE,
+  SET_IS_UPDATING_TASKS,
 } from '../actions/actionTypes';
 
 const initialState = {
   isFetching: true,
   isUpdating: false,
+  isUpdatingTasks: false,
   error: null,
   board: {
     id: null,
@@ -22,9 +25,6 @@ const initialState = {
 
 const boardsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_BOARD_REQUEST:
-      // Return mock data until we implement Saga
-      return state;
     case SET_IS_FECTHING_BOARD:
       return {
         ...state,
@@ -43,15 +43,15 @@ const boardsReducer = (state = initialState, action) => {
         isFetching: false,
         error: action.payload,
       };
-    case UPDATE_BOARD_REQUEST:
-      return {
-        ...state,
-        board: action.payload,
-      };
     case SET_IS_UPDATING_BOARD:
       return {
         ...state,
         isUpdating: action.payload,
+      };
+    case UPDATE_BOARD_REQUEST:
+      return {
+        ...state,
+        board: action.payload,
       };
     case UPDATE_BOARD_SUCCESS:
       return {
@@ -63,6 +63,24 @@ const boardsReducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdating: false,
+        error: null,
+      };
+    case SET_IS_UPDATING_TASKS:
+      return {
+        ...state,
+        isUpdatingTasks: action.payload,
+      };
+    case ADD_TASK_SUCCESS:
+      return {
+        ...state,
+        board: action.payload,
+        isUpdatingTasks: false,
+        error: null,
+      };
+    case ADD_TASK_FAILURE:
+      return {
+        ...state,
+        isUpdatingTasks: false,
         error: null,
       };
     default:

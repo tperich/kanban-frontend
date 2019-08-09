@@ -1,0 +1,21 @@
+.spinner {
+  font-size: 24;
+}
+
+.spinner--top-right {
+  @extend .spinner;
+
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.spinner__icon {
+  font-size: 24;
+}
+
+.spinner__icon--bright {
+  @extend .spinner__icon;
+
+  color: white;
+}

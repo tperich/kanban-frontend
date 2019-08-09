@@ -8,6 +8,9 @@ import {
   setIsUpdatingBoard,
   updateBoardSuccess,
   updateBoardFailure,
+  setIsUpdatingTasks,
+  addTaskSuccess,
+  addTaskFailure,
 } from '../actions/actions';
 import { BOARD_DATA } from '../../constants/apiConstants';
 
@@ -34,5 +37,20 @@ export function* updateBoard(action) {
     yield put(updateBoardSuccess());
   } catch (error) {
     yield put(updateBoardFailure(error));
+  }
+}
+
+export function* addTask(action) {
+  yield put(setIsUpdatingTasks(true));
+
+  try {
+    const { data } = yield call(
+      boardsService.addTask,
+      BOARD_DATA.DEFAULT_BOARD_ID,
+      action.payload
+    );
+    yield put(addTaskSuccess(data));
+  } catch (error) {
+    yield put(addTaskFailure(error.message));
   }
 }
