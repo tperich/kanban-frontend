@@ -8,10 +8,9 @@ class BoardsService extends BaseService {
     return await this.apiClient.get(path);
   };
 
-  updateBoard = async boardData => {
-    return await this.apiClient.post(ENDPOINTS.BOARDS.BOARD, {
-      data: boardData,
-    });
+  updateBoard = async (boardId, boardData) => {
+    const path = ENDPOINTS.BOARDS.BOARD.replace('{board}', boardId);
+    return await this.apiClient.post(path, boardData);
   };
 
   addTask = async (boardId, taskData) => {

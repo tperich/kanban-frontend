@@ -2,7 +2,6 @@ import {
   SET_IS_FECTHING_BOARD,
   FETCH_BOARD_SUCCESS,
   FETCH_BOARD_FAILURE,
-  UPDATE_BOARD_REQUEST,
   SET_IS_UPDATING_BOARD,
   UPDATE_BOARD_SUCCESS,
   UPDATE_BOARD_FAILURE,
@@ -47,11 +46,6 @@ const boardsReducer = (state = initialState, action) => {
       return {
         ...state,
         isUpdating: action.payload,
-      };
-    case UPDATE_BOARD_REQUEST:
-      return {
-        ...state,
-        board: action.payload,
       };
     case UPDATE_BOARD_SUCCESS:
       return {

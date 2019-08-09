@@ -53,7 +53,7 @@ function Board({ data }) {
     column.tasks.splice(source.index, 1);
     column.tasks.splice(destination.index, 0, ...newTask);
 
-    dispatch(updateBoard({ ...data }));
+    dispatch(updateBoard(...newTask));
   }
 
   function handleMoveOutsideColumn(
@@ -63,11 +63,14 @@ function Board({ data }) {
     destination,
     draggableId
   ) {
-    const newTask = sourceColumn.tasks.filter(task => task.id === draggableId);
+    const newTask = sourceColumn.tasks.filter(
+      task => task.id === draggableId
+    )[0];
     sourceColumn.tasks.splice(source.index, 1);
-    targetColumn.tasks.splice(destination.index, 0, ...newTask);
+    targetColumn.tasks.splice(destination.index, 0, newTask);
+    newTask.column_id = targetColumn.id;
 
-    dispatch(updateBoard({ ...data }));
+    dispatch(updateBoard(newTask));
   }
 
   return (

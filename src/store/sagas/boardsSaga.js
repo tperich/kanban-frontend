@@ -33,7 +33,11 @@ export function* updateBoard(action) {
   yield put(setIsUpdatingBoard(true));
 
   try {
-    yield call(boardsService.updateBoard, action.payload);
+    yield call(
+      boardsService.updateBoard,
+      BOARD_DATA.DEFAULT_BOARD_ID,
+      action.payload
+    );
     yield put(updateBoardSuccess());
   } catch (error) {
     yield put(updateBoardFailure(error));
