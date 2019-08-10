@@ -5,3 +5,10 @@ export const truncate = (string, length) => {
 
   return string;
 };
+
+export const validate = string => {
+  if (string.length < 1) {
+    return false;
+  }
+  return true;
+};

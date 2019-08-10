@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { Button, Modal, Input } from 'antd';
+import { Button, Modal, Input, message } from 'antd';
 import { Droppable } from 'react-beautiful-dnd';
 
 import Task from '../Task/Task';
+import { validate } from '../../utils/textUtils';
 import { addTask } from '../../store/actions/actions';
 import { INPUTS } from '../../constants/inputConstants';
 import './Column.scss';
@@ -19,7 +20,18 @@ function Column({ columnId, title = 'To do', tasks }) {
   });
 
   const handleOk = () => {
+    if (!validate(newTaskState.name)) {
+      message.warning("Please enter the task's name!");
+      return;
+    }
+
+    if (!validate(newTaskState.desc)) {
+      message.warning("Please enter the task's description!");
+      return;
+    }
+
     setModalVisible(false);
+
     dispatch(
       addTask({
         name: newTaskState.name,
@@ -49,7 +61,11 @@ function Column({ columnId, title = 'To do', tasks }) {
       <div className="column__title">{title}</div>
       <Droppable droppableId={columnId}>
         {provided => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div
+            style={{ minHeight: '60px' }}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
             {tasks.map((task, index) => (
               <Task
                 index={index}
