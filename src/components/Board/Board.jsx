@@ -80,12 +80,12 @@ function Board({ data }) {
         {taskStatus.error && (
           <h1 className="message--error">{taskStatus.error}</h1>
         )}
-        {data.columns.map(column => {
+        {data.columns.map(( column, index) => {
           const tasks = column.tasks;
 
           return (
             <Column
-              key={column.id}
+              key={index}
               columnId={column.id}
               title={column.title}
               tasks={tasks}
